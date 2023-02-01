@@ -1,4 +1,4 @@
-package structs
+package structmap
 
 import (
 	"fmt"
@@ -85,9 +85,9 @@ func TestMap(t *testing.T) {
 
 func TestMap_Tag(t *testing.T) {
 	var T = struct {
-		A string `structs:"x"`
-		B int    `structs:"y"`
-		C bool   `structs:"z"`
+		A string `structmap:"x"`
+		B int    `structmap:"y"`
+		C bool   `structmap:"z"`
 	}{
 		A: "a-value",
 		B: 2,
@@ -192,8 +192,8 @@ func TestMap_MultipleCustomTag(t *testing.T) {
 func TestMap_OmitEmpty(t *testing.T) {
 	type A struct {
 		Name  string
-		Value string    `structs:",omitempty"`
-		Time  time.Time `structs:",omitempty"`
+		Value string    `structmap:",omitempty"`
+		Time  time.Time `structmap:",omitempty"`
 	}
 	a := A{}
 
@@ -214,7 +214,7 @@ func TestMap_OmitNested(t *testing.T) {
 	type A struct {
 		Name  string
 		Value string
-		Time  time.Time `structs:",omitnested"`
+		Time  time.Time `structmap:",omitnested"`
 	}
 	a := A{Time: time.Now()}
 
@@ -228,7 +228,7 @@ func TestMap_OmitNested(t *testing.T) {
 
 	in, ok := m["A"].(map[string]interface{})
 	if !ok {
-		t.Error("Map nested structs is not available in the map")
+		t.Error("Map nested structmap is not available in the map")
 	}
 
 	// should not happen
@@ -260,7 +260,7 @@ func TestMap_Nested(t *testing.T) {
 
 	in, ok := m["A"].(map[string]interface{})
 	if !ok {
-		t.Error("Map nested structs is not available in the map")
+		t.Error("Map nested structmap is not available in the map")
 	}
 
 	if name := in["Name"].(string); name != "example" {
@@ -405,7 +405,7 @@ func TestMap_NestedMapWithSliceIntValues(t *testing.T) {
 
 func TestMap_NestedMapWithSliceStructValues(t *testing.T) {
 	type address struct {
-		Country string `structs:"country"`
+		Country string `structmap:"country"`
 	}
 
 	type B struct {
@@ -452,12 +452,12 @@ func TestMap_NestedMapWithSliceStructValues(t *testing.T) {
 
 func TestMap_NestedSliceWithStructValues(t *testing.T) {
 	type address struct {
-		Country string `structs:"customCountryName"`
+		Country string `structmap:"customCountryName"`
 	}
 
 	type person struct {
-		Name      string    `structs:"name"`
-		Addresses []address `structs:"addresses"`
+		Name      string    `structmap:"name"`
+		Addresses []address `structmap:"addresses"`
 	}
 
 	p := person{
@@ -481,12 +481,12 @@ func TestMap_NestedSliceWithStructValues(t *testing.T) {
 
 func TestMap_NestedSliceWithPointerOfStructValues(t *testing.T) {
 	type address struct {
-		Country string `structs:"customCountryName"`
+		Country string `structmap:"customCountryName"`
 	}
 
 	type person struct {
-		Name      string     `structs:"name"`
-		Addresses []*address `structs:"addresses"`
+		Name      string     `structmap:"name"`
+		Addresses []*address `structmap:"addresses"`
 	}
 
 	p := person{
@@ -510,8 +510,8 @@ func TestMap_NestedSliceWithPointerOfStructValues(t *testing.T) {
 
 func TestMap_NestedSliceWithIntValues(t *testing.T) {
 	type person struct {
-		Name  string `structs:"name"`
-		Ports []int  `structs:"ports"`
+		Name  string `structmap:"name"`
+		Ports []int  `structmap:"ports"`
 	}
 
 	p := person{
@@ -550,7 +550,7 @@ func TestMap_Anonymous(t *testing.T) {
 
 	in, ok := m["A"].(map[string]interface{})
 	if !ok {
-		t.Error("Embedded structs is not available in the map")
+		t.Error("Embedded structmap is not available in the map")
 	}
 
 	if name := in["Name"].(string); name != "example" {
@@ -565,7 +565,7 @@ func TestMap_Flatnested(t *testing.T) {
 	a := A{Name: "example"}
 
 	type B struct {
-		A `structs:",flatten"`
+		A `structmap:",flatten"`
 		C int
 	}
 	b := &B{C: 123}
@@ -592,7 +592,7 @@ func TestMap_FlatnestedOverwrite(t *testing.T) {
 	a := A{Name: "example"}
 
 	type B struct {
-		A    `structs:",flatten"`
+		A    `structmap:",flatten"`
 		Name string
 		C    int
 	}
@@ -732,7 +732,7 @@ func TestValues(t *testing.T) {
 func TestValues_OmitEmpty(t *testing.T) {
 	type A struct {
 		Name  string
-		Value int `structs:",omitempty"`
+		Value int `structmap:",omitempty"`
 	}
 
 	a := A{Name: "example"}
@@ -759,7 +759,7 @@ func TestValues_OmitNested(t *testing.T) {
 	}
 
 	type B struct {
-		A A `structs:",omitnested"`
+		A A `structmap:",omitnested"`
 		C int
 	}
 	b := &B{A: a, C: 123}
@@ -923,7 +923,7 @@ func TestFields_OmitNested(t *testing.T) {
 	type B struct {
 		A      A
 		C      int
-		Value  string `structs:"-"`
+		Value  string `structmap:"-"`
 		Number int
 	}
 	b := &B{A: a, C: 123}
@@ -985,7 +985,7 @@ func TestIsZero(t *testing.T) {
 	var T = struct {
 		A string
 		B int
-		C bool `structs:"-"`
+		C bool `structmap:"-"`
 		D []string
 	}{}
 
@@ -1028,7 +1028,7 @@ func TestIsZero_OmitNested(t *testing.T) {
 	a := A{Name: "example"}
 
 	type B struct {
-		A A `structs:",omitnested"`
+		A A `structmap:",omitnested"`
 		C int
 	}
 	b := &B{A: a, C: 123}
@@ -1109,7 +1109,7 @@ func TestHasZero(t *testing.T) {
 	var T = struct {
 		A string
 		B int
-		C bool `structs:"-"`
+		C bool `structmap:"-"`
 		D []string
 	}{
 		A: "a-value",
@@ -1155,7 +1155,7 @@ func TestHasZero_OmitNested(t *testing.T) {
 	a := A{Name: "example"}
 
 	type B struct {
-		A A `structs:",omitnested"`
+		A A `structmap:",omitnested"`
 		C int
 	}
 	b := &B{A: a, C: 123}
@@ -1429,10 +1429,10 @@ func TestPointer2Pointer(t *testing.T) {
 
 func TestMap_InterfaceTypeWithMapValue(t *testing.T) {
 	type A struct {
-		Name    string      `structs:"name"`
-		IP      string      `structs:"ip"`
-		Query   string      `structs:"query"`
-		Payload interface{} `structs:"payload"`
+		Name    string      `structmap:"name"`
+		IP      string      `structmap:"ip"`
+		Query   string      `structmap:"query"`
+		Payload interface{} `structmap:"payload"`
 	}
 
 	a := A{

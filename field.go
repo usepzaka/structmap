@@ -1,4 +1,4 @@
-package structs
+package structmap
 
 import (
 	"errors"
@@ -95,8 +95,8 @@ func (f *Field) Zero() error {
 // of a nested struct . A struct tag with the content of "-" ignores the
 // checking of that particular field. Example:
 //
-//   // Field is ignored by this package.
-//   Field *http.Request `structs:"-"`
+//	// Field is ignored by this package.
+//	Field *http.Request `structmap:"-"`
 //
 // It panics if field is not exported or if field's kind is not struct
 func (f *Field) Fields() []*Field {

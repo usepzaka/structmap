@@ -1,4 +1,4 @@
-package structs
+package structmap
 
 import (
 	"reflect"
@@ -8,7 +8,7 @@ import (
 // A test struct that defines all cases
 type Foo struct {
 	A    string
-	B    int    `structs:"y"`
+	B    int    `structmap:"y"`
 	C    bool   `json:"c"`
 	d    string // not exported
 	E    *Baz
