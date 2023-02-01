@@ -91,7 +91,7 @@ func ExampleMap_omitNested() {
 	}
 
 	const shortForm = "2006-Jan-02"
-	t, _ := time.Parse("2006-Jan-02", "2013-Feb-03")
+	t, _ := time.Parse(shortForm, "2013-Feb-03")
 
 	s := &Server{
 		Name: "Zeynep",
@@ -141,7 +141,7 @@ func ExampleValues() {
 	}
 
 	s := &Server{
-		Name:    "Fatih",
+		Name:    "Usep",
 		ID:      135790,
 		Enabled: false,
 	}
@@ -150,7 +150,7 @@ func ExampleValues() {
 
 	fmt.Printf("Values: %+v\n", m)
 	// Output:
-	// Values: [Fatih 135790 false]
+	// Values: [Usep 135790 false]
 }
 
 func ExampleValues_omitEmpty() {
@@ -189,7 +189,7 @@ func ExampleValues_tags() {
 	}
 
 	s := &Server{
-		Name:     "Fatih",
+		Name:     "Usep",
 		ID:       135790,
 		Enabled:  false,
 		Location: Location{City: "Ankara", Country: "Turkey"},
@@ -201,7 +201,7 @@ func ExampleValues_tags() {
 
 	fmt.Printf("Values: %+v\n", m)
 	// Output:
-	// Values: [Fatih 135790 false]
+	// Values: [Usep 135790 false]
 }
 
 func ExampleFields() {
@@ -212,7 +212,7 @@ func ExampleFields() {
 	}
 
 	s := &Access{
-		Name:         "Fatih",
+		Name:         "Usep",
 		LastAccessed: time.Now(),
 		Number:       1234567,
 	}
@@ -242,7 +242,7 @@ func ExampleFields_nested() {
 	}
 
 	s := &Access{
-		Person:        Person{Name: "fatih", Number: 1234567},
+		Person:        Person{Name: "usep", Number: 1234567},
 		LastAccessed:  time.Now(),
 		HasPermission: true,
 	}
@@ -257,7 +257,7 @@ func ExampleFields_nested() {
 	}
 
 	// Output:
-	// Access.Person.Name: fatih
+	// Access.Person.Name: usep
 }
 
 func ExampleField() {
@@ -273,7 +273,7 @@ func ExampleField() {
 	}
 
 	access := &Access{
-		Person:        Person{Name: "fatih", Number: 1234567},
+		Person:        Person{Name: "usep", Number: 1234567},
 		LastAccessed:  time.Now(),
 		HasPermission: true,
 	}
@@ -290,7 +290,7 @@ func ExampleField() {
 	fmt.Printf("Value of Person.Access.Name: %+v\n", name.Value())
 
 	// Output:
-	// Value of Person.Access.Name: fatih
+	// Value of Person.Access.Name: usep
 
 }
 
@@ -337,7 +337,7 @@ func ExampleHasZero() {
 
 	// Name and Number is initialized.
 	b := &Access{
-		Name:         "Fatih",
+		Name:         "Usep",
 		LastAccessed: time.Now(),
 		Number:       12345,
 	}

@@ -33,7 +33,7 @@ func newStruct() *Struct {
 	b := &Bar{
 		E: "example",
 		F: 2,
-		g: []string{"zeynep", "fatih"},
+		g: []string{"zeynep", "usep"},
 	}
 
 	// B and x is not initialized for testing
@@ -54,13 +54,13 @@ func TestField_Set(t *testing.T) {
 	s := newStruct()
 
 	f := s.Field("A")
-	err := f.Set("fatih")
+	err := f.Set("usep")
 	if err != nil {
 		t.Error(err)
 	}
 
-	if f.Value().(string) != "fatih" {
-		t.Errorf("Setted value is wrong: %s want: %s", f.Value().(string), "fatih")
+	if f.Value().(string) != "usep" {
+		t.Errorf("Setted value is wrong: %s want: %s", f.Value().(string), "usep")
 	}
 
 	f = s.Field("Y")
@@ -92,8 +92,8 @@ func TestField_Set(t *testing.T) {
 	}
 
 	// old value should be still there :)
-	if f.Value().(string) != "fatih" {
-		t.Errorf("Setted value is wrong: %s want: %s", f.Value().(string), "fatih")
+	if f.Value().(string) != "usep" {
+		t.Errorf("Setted value is wrong: %s want: %s", f.Value().(string), "usep")
 	}
 
 	// let's access an unexported field, which should give an error
